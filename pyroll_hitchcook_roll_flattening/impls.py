@@ -17,7 +17,7 @@ def roll_youngs_modulus(roll_pass):
 
 @RollPass.hookimpl
 def nominal_radius_flattened_radius_ratio(roll_pass):
-    ratio =
+    ratio = roll_pass.nominal_roll_radius / roll_pass.previous_nominal_roll_radius
 
     if ratio <= 5.235:
         return 1 + 16 / np.pi * (1 - roll_pass.roll_poissons_ratio ^ 2) / roll_pass.roll_youngs_modulus * roll_pass.roll_force / (
@@ -29,14 +29,14 @@ def nominal_radius_flattened_radius_ratio(roll_pass):
 
 @RollPass.hookimpl
 def previous_roll_force(roll_pass):
+    pass
 
 
 @RollPass.hookimpl
 def previous_nominal_roll_radius(roll_pass):
-
+    pass
 
 
 @RollPass.hookimpl
 def nominal_roll_radius(roll_pass):
     return roll_pass.nominal_radius_flattened_radius_ratio * roll_pass.nominal_roll_radius
-
