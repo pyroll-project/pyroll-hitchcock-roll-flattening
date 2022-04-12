@@ -31,8 +31,7 @@ def flattened_radius_nominal_radius_ratio(roll_pass):
 
 @RollPass.hookimpl
 def flattened_roll_radius(roll_pass):
-    if not hasattr(roll_pass, "hitchcock_first_iteration_marker"):
-        roll_pass.hitchcock_first_iteration_marker = True
+    if "roll_force" not in roll_pass.__dict__:
         return roll_pass.nominal_roll_radius
     else:
         flattened_radius = roll_pass.flattened_radius_nominal_radius_ratio * roll_pass.nominal_roll_radius
@@ -58,5 +57,3 @@ def min_roll_radius(roll_pass):
 def working_roll_radius(roll_pass):
     return roll_pass.flattened_roll_radius - roll_pass.groove.cross_section.centroid.y
 
-
-# RollPass.hooks.add("flattened_roll_radius")
