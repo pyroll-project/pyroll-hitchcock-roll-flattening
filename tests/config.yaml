@@ -12,12 +12,12 @@ logging: # configuration for the logging standard library package
   handlers:
     console:
       class: logging.StreamHandler
-      level: INFO
+      level: DEBUG
       formatter: console
       stream: ext://sys.stdout
     file:
       class: logging.FileHandler
-      level: INFO
+      level: DEBUG
       formatter: file
       filename: pyroll.log
 
@@ -26,5 +26,5 @@ logging: # configuration for the logging standard library package
       level: ERROR
 
   root:
-    level: INFO
+    level: DEBUG
     handlers: [ console, file ]

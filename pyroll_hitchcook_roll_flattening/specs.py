@@ -12,15 +12,15 @@ def roll_youngs_modulus(roll_pass):
 
 
 @RollPass.hookimpl
-def previous_roll_force(roll_pass):
-    """Roll force of previous iteration step"""
-
-
-@RollPass.hookimpl
-def previous_nominal_roll_radius(roll_pass):
-    """Nominal roll radius of previous iteration step"""
+def control_hook(roll_pass):
+    """Hook for control of loop """
 
 
 @RollPass.hookspec
-def nominal_radius_flattened_radius_ratio(roll_pass):
-    """Calculate the ratio between nominal radius and flattened radius of roll."""
+def flattened_radius_nominal_radius_ratio(roll_pass):
+    """Calculate the ratio between flattened and nominal radius of roll."""
+
+
+@RollPass.hookimpl
+def flattened_roll_radius(roll_pass):
+    """Flattened roll radius"""
