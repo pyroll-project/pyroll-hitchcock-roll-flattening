@@ -35,14 +35,14 @@ def flattened_roll_radius(roll_pass):
         return roll_pass.nominal_roll_radius
     else:
         flattened_radius = roll_pass.flattened_radius_nominal_radius_ratio * roll_pass.nominal_roll_radius
-        log.info(f"Calculated a roll radius of {flattened_radius:.2f} mm")
+        log.info(f"Calculated a roll radius of {flattened_radius:.2f} mm using Hitchcook's model!")
         return flattened_radius
 
 
 @RollPass.hookimpl
 def max_roll_radius(roll_pass):
     max_radius = roll_pass.flattened_roll_radius
-    log.debug(f"Calculated a minimal roll radius of {max_radius:.2f} mm")
+    log.debug(f"Calculated a maximal roll radius of {max_radius:.2f} mm")
     return max_radius
 
 
