@@ -1,9 +1,10 @@
 from pyroll import RollPass
 from pyroll.ui.report import Report
-from pyroll.utils import applies_to_unit_types
+from pyroll.utils import for_units
+
 
 @Report.hookimpl
-@applies_to_unit_types(RollPass)
+@for_units(RollPass)
 def unit_properties(unit: RollPass):
     return dict(
         work_roll_youngs_modulus=f"{unit.roll_youngs_modulus}",
