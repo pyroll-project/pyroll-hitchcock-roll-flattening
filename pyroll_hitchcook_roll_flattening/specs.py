@@ -1,21 +1,21 @@
-from pyroll import RollPass
+from pyroll import RollPass, Roll
 
 
-@RollPass.hookspec
-def roll_poissons_ratio(roll_pass):
+@Roll.hookspec
+def poissons_ratio(roll: Roll):
     """Poissions ratio of the roll material."""
 
 
-@RollPass.hookspec
-def roll_youngs_modulus(roll_pass):
-    """Youngs modulus of the roll material."""
+@Roll.hookspec
+def elastic_modulus(roll: Roll):
+    """Elastic modulus of the roll material."""
 
 
-@RollPass.hookspec
-def flattened_radius_nominal_radius_ratio(roll_pass):
-    """Calculate the ratio between flattened and nominal radius of roll."""
+@RollPass.Roll.hookspec
+def flattening_ratio(roll: RollPass.Roll, roll_pass: RollPass):
+    """The ratio between flattened and nominal radius of the roll."""
 
 
-@RollPass.hookspec
-def flattened_roll_radius(roll_pass):
+@RollPass.Roll.hookspec
+def flattened_radius(roll: Roll, roll_pass: RollPass):
     """Flattened roll radius"""
