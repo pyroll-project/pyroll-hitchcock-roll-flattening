@@ -1,13 +1,17 @@
-from pyroll import RollPass
-from pyroll.ui.report import Report
+from pyroll import RollPass, Roll
+from pyroll import Reporter
 
 from . import specs
+
+Roll.plugin_manager.add_hookspecs(specs)
+RollPass.Roll.plugin_manager.add_hookspecs(specs)
+
 from . import impls
 
-RollPass.plugin_manager.add_hookspecs(specs)
-RollPass.plugin_manager.register(impls)
+Roll.plugin_manager.register(impls)
+RollPass.Roll.plugin_manager.register(impls)
+
 
 from . import report
 
-Report.plugin_manager.register(report)
-
+Reporter.plugin_manager.register(report)
