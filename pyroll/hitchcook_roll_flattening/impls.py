@@ -21,7 +21,7 @@ def youngs_modulus(roll: Roll):
 def flattening_ratio(roll: Roll, roll_pass: RollPass):
     """Calculates the ratio between flattened and initial roll radius using Hitchcooks formula."""
 
-    elastic_constant = (16 * (1 - roll.poissons_ratio ** 2)) / (np.pi * roll.youngs_modulus[0])
+    elastic_constant = (16 * (1 - roll.poissons_ratio ** 2)) / (np.pi * roll.youngs_modulus)
     height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.gap
 
     flattening_hitchcock = (elastic_constant * roll_pass.roll_force) / (height_change * roll_pass.in_profile.equivalent_rectangle.width)

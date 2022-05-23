@@ -13,11 +13,11 @@ homepage = "https://pyroll-project.github.io/"
 repository = "https://github.com/pyroll-project/pyroll-hitchcock-roll-flattening"
 documentation = "https://github.com/pyroll-project/pyroll-hitchcock-roll-flattening/blob/main/docs/docs.pdf"
 packages = [
-    { include = "pyroll/hitchcock_roll_flattening" }
+    { include = "pyroll/hitchcook_roll_flattening" }
 ]
 
 [tool.poetry.dependencies]
-python = ">= 3.9, <3.11"
+python = ">=3.9, <3.11"
 pyroll = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
@@ -27,3 +27,4 @@ pyroll = { git = "https://github.com/pyroll-project/pyroll-core", branch = "main
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+

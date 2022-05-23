@@ -7,7 +7,7 @@ def poissons_ratio(roll: Roll):
 
 
 @Roll.hookspec
-def elastic_modulus(roll: Roll):
+def youngs_modulus(roll: Roll):
     """Elastic modulus of the roll material."""
 
 
