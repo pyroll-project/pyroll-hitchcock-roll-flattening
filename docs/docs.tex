@@ -1,0 +1,77 @@
+%! Author = Christoph Renzing
+%! Date = 21.04.22
+
+% Preamble
+\documentclass[11pt]{PyRollDocs}
+\usepackage{textcomp}
+
+\addbibresource{refs.bib}
+% Document
+\begin{document}
+
+    \title{Hitchcook roll flattening PyRoll Plugin}
+    \author{Christoph Renzing}
+    \date{\today}
+
+    \maketitle
+
+    This plugin provides the analytical roll flattening model developed by \textcite{Hitchcook1935} and adapted by \textcite{BohmFlaxa1981, FlaxaHinkfothBohm1979}.
+
+
+    \section{Model approach}\label{sec:model-approach}
+
+    The models are derived from the general theory of elasticity.
+    According to Hitchcock, roll flattening due too high forces and large contact lengths has to be considered as it enhances calculation of roll force and torque.
+    \textcite{Hitchcook1935} assumed the pressure distribution for rolling to be elliptical,
+    therefore the roll shape stays cylindrical and a replacement radius larger than the can be calculated.
+    Bohm and Flaxa \textcite{BohmFlaxa1981, FlaxaHinkfothBohm1979} extended the usage of the method to greater initial ($R_0$) to flattened roll radii ($R_1$)
+    For the calculation the roll force and the elastic constants of the roll material are required.
+    Furthermore the calculation has to be done in an iterative way.
+    To implement the method for groove rolling, the calculations are done using a equivalent rectangle.
+    Equivalent variables are denoted $eq$.
+
+    To calculate the flattened radius following equation is used:
+
+    \begin{subequations}
+        \begin{equation}
+            \frac{R_\mathrm{1}}{R_\mathrm{0}} = 1 + \frac{16}{\pi} \frac{ - \nu_\mathrm{W}^2}{E_\mathrm{W}} \frac{F_\mathrm{Roll}}{h_\mathrm{eq,0} - s}, \frac{R_\mathrm{1}}{R_\mathrm{0}} < 5.235
+            \label{eq:hitchcook-1}\\
+        \end{equation}
+        \begin{equation}
+            \frac{R_\mathrm{1}}{R_\mathrm{0}} = \left(  \frac{16}{\pi} \frac{1 - \nu_\mathrm{W}^2}{E_\mathrm{W}} \frac{F_\mathrm{Roll}}{h_\mathrm{eq,0} - s} \right)^{\frac{2}{3}}, \frac{R_\mathrm{1}}{R_\mathrm{0}} > 5.235
+            \label{eq:hitchcook-2}
+        \end{equation}
+    \end{subequations}
+
+
+    \section{Usage instructions}\label{sec:usage-instructions}
+
+    The plugin can be loaded under the name \texttt{pyroll\_hitchcock\_roll\_flattening}.
+
+    An implementation of the hooks \lstinline{flattened_radius} and \lstinline{flattening_ratio}
+    for calculation the values for $R_1$ and $\frac{R_1}{R_0}$ are provided on the \lstinline{Roll}.
+    Several additional hooks on \lstinline{Roll} are defined, which are used for calculation, as listed in \autoref{tab:hookspecs}.
+
+    \begin{table}
+        \centering
+        \caption{Hooks specified by this plugin.}
+        \label{tab:hookspecs}
+        \begin{tabular}{ll}
+            \toprule
+            Hook name                      & Meaning                                                      \\
+            \midrule
+            \texttt{poissons\_ratio}       & Poissons's ratio of roll material $\nu_\mathrm{W}$           \\
+            \texttt{youngs\_modulus}       & Youngs's modulus of roll material $E_\mathrm{W}$             \\
+            \texttt{flattening\_ratio}     & Ratio between flattened and initial radius $\frac{R_1}{R_0}$ \\
+            \texttt{flattened\_radius}     & Flattened roll radius $R_1$                                  \\
+            \texttt{max\_roll\_radius}     & Max.~roll radius                                             \\
+            \texttt{min\_roll\_radius}     & Min.~roll radius                                             \\
+            \texttt{working\_roll\_radius} & Working roll radius                                          \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \printbibliography
+
+
+\end{document}

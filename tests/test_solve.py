@@ -1,31 +1,24 @@
 import logging
 from pathlib import Path
 
-import pytest
-
-from pyroll import solve
-from pyroll import Reporter
-
-THIS_DIR = Path(__file__).parent
+from pyroll.core import solve
+from pyroll.ui import Reporter
 
 
 def test_solve(tmp_path: Path, caplog):
-    import pyroll.ui.cli.res.input_trio as input_py
-    import pyroll_hitchcook_roll_flattening
-
     caplog.set_level(logging.DEBUG, "pyroll")
 
-    sequence = input_py.sequence
+    from pyroll import hitchcook_roll_flattening
 
-    solve(sequence, input_py.in_profile)
+    from pyroll.ui.cli.res import input_trio
 
-    report = Reporter()
+    solve(input_trio.sequence, input_trio.in_profile)
 
-    rendered = report.render(sequence)
-    print()
+    report = Reporter().render(input_trio.sequence)
 
     report_file = tmp_path / "report.html"
-    report_file.write_text(rendered)
+    report_file.write_text(report)
+    print()
     print(report_file)
 
     print()

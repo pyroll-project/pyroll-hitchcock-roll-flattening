@@ -1,5 +1,5 @@
-from pyroll import RollPass, Roll
-from pyroll import Reporter
+from pyroll.core import RollPass, Roll
+from pyroll.ui import Reporter
 
 from . import specs
 
@@ -10,7 +10,6 @@ from . import impls
 
 Roll.plugin_manager.register(impls)
 RollPass.Roll.plugin_manager.register(impls)
-
 
 from . import report
 
