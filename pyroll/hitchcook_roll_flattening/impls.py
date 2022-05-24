@@ -14,7 +14,7 @@ def poissons_ratio(roll: Roll):
 @Roll.hookimpl
 def youngs_modulus(roll: Roll):
     """Default implementation for steel rolls."""
-    return 210e6
+    return 210e9
 
 
 @RollPass.Roll.hookimpl
@@ -23,15 +23,18 @@ def flattening_ratio(roll: Roll, roll_pass: RollPass):
 
     elastic_constant = (16 * (1 - roll.poissons_ratio ** 2)) / (np.pi * roll.youngs_modulus)
     height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.out_profile.equivalent_rectangle.height
+    mean_width = (roll_pass.in_profile.equivalent_rectangle.width + roll_pass.out_profile.equivalent_rectangle.width) / 2
 
-    flattening_hitchcock = (elastic_constant * roll_pass.roll_force) / (height_change * roll_pass.in_profile.equivalent_rectangle.width)
-
-    log.info(f"Calculated radius ratio of {flattening_hitchcock:.2f}")
+    flattening_hitchcock = (elastic_constant * roll_pass.roll_force) / (height_change * mean_width)
 
     if flattening_hitchcock < 4.235:
-        return 1 + flattening_hitchcock
+        ratio = 1 + flattening_hitchcock
+
     else:
-        return 2 * flattening_hitchcock ** (2 / 3)
+        ratio = 2 * flattening_hitchcock ** (2 / 3)
+
+    log.info(f"Calculated radius ratio of {ratio:.2f}")
+    return ratio
 
 
 @RollPass.Roll.hookimpl
