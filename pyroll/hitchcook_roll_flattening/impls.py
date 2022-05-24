@@ -7,13 +7,13 @@ log = logging.getLogger(__name__)
 
 @Roll.hookimpl
 def poissons_ratio(roll: Roll):
-    """Default implementation."""
+    """Default implementation for steel rolls."""
     return 0.3
 
 
 @Roll.hookimpl
 def youngs_modulus(roll: Roll):
-    """Default implementation."""
+    """Default implementation for steel rolls."""
     return 210e6
 
 
@@ -22,11 +22,11 @@ def flattening_ratio(roll: Roll, roll_pass: RollPass):
     """Calculates the ratio between flattened and initial roll radius using Hitchcooks formula."""
 
     elastic_constant = (16 * (1 - roll.poissons_ratio ** 2)) / (np.pi * roll.youngs_modulus)
-    height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.gap
+    height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.out_profile.equivalent_rectangle.height
 
     flattening_hitchcock = (elastic_constant * roll_pass.roll_force) / (height_change * roll_pass.in_profile.equivalent_rectangle.width)
 
-    log.debug(f"Calculated radius ratio of {flattening_hitchcock:.2f}")
+    log.info(f"Calculated radius ratio of {flattening_hitchcock:.2f}")
 
     if flattening_hitchcock < 4.235:
         return 1 + flattening_hitchcock
@@ -36,13 +36,15 @@ def flattening_ratio(roll: Roll, roll_pass: RollPass):
 
 @RollPass.Roll.hookimpl
 def flattened_radius(roll: Roll, roll_pass: RollPass):
+    """Calculates the flattened radius."""
     if "roll_force" not in roll_pass.__dict__:
-        return roll_pass.nominal_roll_radius
+        radius = roll.nominal_radius
     else:
-        flattened_radius = roll.flattening_ratio * roll.nominal_radius
-        log.info(f"Calculated a roll radius of {flattened_radius * 1e3:.2f} mm using Hitchcook's model!")
 
-        return flattened_radius
+        radius = roll_pass.roll.flattening_ratio * roll_pass.roll.nominal_radius
+        log.info(f"Calculated a roll radius of {radius * 1e3:.2f} mm using Hitchcook's model!")
+
+    return radius
 
 
 @Roll.hookimpl
@@ -50,8 +52,8 @@ def max_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
-    r = roll.flattened_radius
-    return r
+    radius = roll.flattened_radius
+    return radius
 
 
 @Roll.hookimpl
@@ -59,8 +61,8 @@ def min_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
-    r = roll.flattened_radius - roll.groove.depth
-    return r
+    radius = roll.flattened_radius - roll.groove.depth
+    return radius
 
 
 @Roll.hookimpl
@@ -68,5 +70,5 @@ def working_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
-    r = roll.flattened_radius - roll.groove.cross_section.centroid.y
-    return r
+    radius = roll.flattened_radius - roll.groove.cross_section.centroid.y
+    return radius
