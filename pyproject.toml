@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pyroll-hitchcock-roll-flattening"
 version = "1.0.0"
-description = "PyRoll plugin providing the roll flattening model from J. Hitchcook."
+description = "PyRoll plugin providing the roll flattening model from J. Hitchcock."
 authors = [
     "Christoph Renzing <christoph.renzing@imf.tu-freiberg.de>",
     "Max Weiner <max.weiner@imf.tu-freiberg.de>"
@@ -13,7 +13,7 @@ homepage = "https://pyroll-project.github.io/"
 repository = "https://github.com/pyroll-project/pyroll-hitchcock-roll-flattening"
 documentation = "https://github.com/pyroll-project/pyroll-hitchcock-roll-flattening/blob/main/docs/docs.pdf"
 packages = [
-    { include = "pyroll/hitchcook_roll_flattening" }
+    { include = "pyroll/hitchcock_roll_flattening" }
 ]
 
 [tool.poetry.dependencies]

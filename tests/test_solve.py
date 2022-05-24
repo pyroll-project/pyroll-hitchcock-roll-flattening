@@ -8,7 +8,7 @@ from pyroll.ui import Reporter
 def test_solve(tmp_path: Path, caplog):
     caplog.set_level(logging.DEBUG, "pyroll")
 
-    from pyroll import hitchcook_roll_flattening
+    from pyroll import hitchcock_roll_flattening
 
     from pyroll.ui.cli.res import input_trio
 
