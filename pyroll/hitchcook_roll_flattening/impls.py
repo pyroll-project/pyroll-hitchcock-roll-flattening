@@ -46,7 +46,7 @@ def flattened_radius(roll: Roll, roll_pass: RollPass):
 
 
 @Roll.hookimpl
-def max_roll_radius(roll: Roll):
+def max_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
@@ -55,7 +55,7 @@ def max_roll_radius(roll: Roll):
 
 
 @Roll.hookimpl
-def min_roll_radius(roll: Roll):
+def min_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
@@ -64,7 +64,7 @@ def min_roll_radius(roll: Roll):
 
 
 @Roll.hookimpl
-def working_roll_radius(roll: Roll):
+def working_radius(roll: Roll):
     if not hasattr(roll, "flattened_radius"):
         return None
 
