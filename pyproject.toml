@@ -7,6 +7,13 @@ authors = [
     "Max Weiner <max.weiner@imf.tu-freiberg.de>"
 
 ]
+readme = "README.md"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering"
+]
 
 license = "BSD-3-Clause"
 homepage = "https://pyroll-project.github.io/"
