@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyroll-hitchcock-roll-flattening"
-version = "1.0.0"
+version = "2.0.0a1"
 description = "PyRoll plugin providing the roll flattening model from J. Hitchcock."
 authors = [
     "Christoph Renzing <christoph.renzing@imf.tu-freiberg.de>",
@@ -25,11 +25,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.11"
-pyroll = "^1.0.0"
+pyroll-core = "^2.0.0a"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.0"
-pyroll = { git = "https://github.com/pyroll-project/pyroll-core", branch = "main", develop = true }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
