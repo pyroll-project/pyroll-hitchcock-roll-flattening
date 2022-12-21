@@ -24,7 +24,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.11"
+python = ">=3.9, <4.0"
 pyroll-core = "^2.0.0a"
 
 [tool.poetry.dev-dependencies]
