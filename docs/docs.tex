@@ -9,7 +9,7 @@
 % Document
 \begin{document}
 
-    \title{Hitchcook roll flattening PyRoll Plugin}
+    \title{Hitchcock roll flattening PyRolL Plugin}
     \author{Christoph Renzing}
     \date{\today}
 
@@ -23,10 +23,10 @@
     The models are derived from the general theory of elasticity.
     According to Hitchcock, roll flattening due too high forces and large contact lengths has to be considered as it enhances calculation of roll force and torque.
     \textcite{Hitchcook1935} assumed the pressure distribution for rolling to be elliptical,
-    therefore the roll shape stays cylindrical and a replacement radius larger than the can be calculated.
+    therefore the roll shape stays cylindrical and a replacement radius larger than the nominal radius can be calculated.
     Bohm and Flaxa \textcite{BohmFlaxa1981, FlaxaHinkfothBohm1979} extended the usage of the method to greater initial ($R_0$) to flattened roll radii ($R_1$)
     For the calculation the roll force and the elastic constants of the roll material are required.
-    Furthermore the calculation has to be done in an iterative way.
+    Furthermore, the calculation has to be done in an iterative way.
     To implement the method for groove rolling, the calculations are done using a equivalent rectangle.
     Equivalent variables are denoted $eq$.
 
@@ -50,6 +50,7 @@
 
     An implementation of the hooks \lstinline{flattened_radius} and \lstinline{flattening_ratio}
     for calculation the values for $R_1$ and $\frac{R_1}{R_0}$ are provided on the \lstinline{Roll}.
+    The hooks \lstinline{elastic_modulus} as well as \lstinline{poissons_ratio} have to be set by the user on \lstinline{Roll}.
     Several additional hooks on \lstinline{Roll} are defined, which are used for calculation, as listed in \autoref{tab:hookspecs}.
 
     \begin{table}

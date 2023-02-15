@@ -1,8 +1,8 @@
-from pyroll.core import RollPass, Roll
-
 import numpy as np
 import logging
 from pyroll.core import RollPass, Roll, Hook
+
+VERSION = "2.0.0"
 
 log = logging.getLogger(__name__)
 
@@ -13,22 +13,22 @@ RollPass.Roll.flattened_radius = Hook[float]()
 """Flattened roll radius acc. to Hitchcock."""
 
 
-@Roll.poissons_ratio
-def default_poissons_ratio(roll: Roll):
-    """Default implementation for steel rolls."""
-    return 0.3
+@RollPass.Roll.poissons_ratio
+def poissons_ratio(self: RollPass.Roll):
+    raise ValueError(
+        "You must provide a poissons ratio to use the pyroll-hitchcock-roll-flattening plugin!")
 
 
-@Roll.elastic_modulus
-def default_elastic_modulus(roll: Roll):
-    """Default implementation for steel rolls."""
-    return 210e9
+@RollPass.Roll.elastic_modulus
+def elastic_modulus(self: RollPass.Roll):
+    raise ValueError(
+        "You must provide a elastic modulus to use the pyroll-hitchcock-roll-flattening plugin!")
 
 
 @RollPass.Roll.flattening_ratio
 def flattening_ratio(self: RollPass.Roll):
-    """Calculates the ratio between flattened and initial roll radius using Hitchcooks formula."""
-    roll_pass = self.roll_pass()
+    """Calculates the ratio between flattened and initial roll radius using Hitchcocks formula."""
+    roll_pass = self.roll_pass
 
     elastic_constant = (16 * (1 - self.poissons_ratio ** 2)) / (np.pi * self.elastic_modulus)
     height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.out_profile.equivalent_rectangle.height
@@ -50,7 +50,7 @@ def flattening_ratio(self: RollPass.Roll):
 @RollPass.Roll.flattened_radius
 def flattened_radius(self: RollPass.Roll):
     """Calculates the flattened radius."""
-    roll_pass = self.roll_pass()
+    roll_pass = self.roll_pass
 
     if "roll_force" not in roll_pass.__dict__:
         radius = self.nominal_radius

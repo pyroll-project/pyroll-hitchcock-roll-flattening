@@ -1,18 +1,9 @@
-[tool.poetry]
+[project]
 name = "pyroll-hitchcock-roll-flattening"
-version = "2.0.0a1"
-description = "PyRoll plugin providing the roll flattening model from J. Hitchcock."
+description = "PyRolL plugin providing the roll flattening model from J. Hitchcock."
 authors = [
-    "Christoph Renzing <christoph.renzing@imf.tu-freiberg.de>",
-    "Max Weiner <max.weiner@imf.tu-freiberg.de>"
-
-]
-readme = "README.md"
-classifiers = [
-    "Intended Audience :: Science/Research",
-    "Intended Audience :: Manufacturing",
-    "Operating System :: OS Independent",
-    "Topic :: Scientific/Engineering"
+    { name = "Christoph Renzing", email = "christoph.renzing@imf.tu-freiberg.de" },
+    { name = "Max Weiner", email = "max.weiner@imf.tu-freiberg.de" }
 ]
 
 license = "BSD-3-Clause"
@@ -22,15 +13,20 @@ documentation = "https://github.com/pyroll-project/pyroll-hitchcock-roll-flatten
 packages = [
     { include = "pyroll/hitchcock_roll_flattening" }
 ]
+readme = "README.md"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering"
+]
+requires-python = ">=3.9, <4.0"
+dependencies = ["pyroll-core ~= 2.0.0rc0"]
 
-[tool.poetry.dependencies]
-python = ">=3.9, <4.0"
-pyroll-core = "^2.0.0a"
-
-[tool.poetry.dev-dependencies]
-pytest = "^7.0.0"
+dynamic = ["version"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 
