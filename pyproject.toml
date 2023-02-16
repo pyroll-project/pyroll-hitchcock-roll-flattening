@@ -21,7 +21,7 @@ classifiers = [
     "Topic :: Scientific/Engineering"
 ]
 requires-python = ">=3.9, <4.0"
-dependencies = ["pyroll-core ~= 2.0.0rc1"]
+dependencies = ["pyroll-core ~= 2.0.0"]
 
 dynamic = ["version"]
 
