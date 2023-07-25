@@ -10,18 +10,6 @@ RollPass.Roll.flattened_radius = Hook[float]()
 """Flattened roll radius acc. to Hitchcock."""
 
 
-@RollPass.Roll.poissons_ratio
-def poissons_ratio(self: RollPass.Roll):
-    raise ValueError(
-        "You must provide a poissons ratio to use the pyroll-hitchcock-roll-flattening plugin!")
-
-
-@RollPass.Roll.elastic_modulus
-def elastic_modulus(self: RollPass.Roll):
-    raise ValueError(
-        "You must provide a elastic modulus to use the pyroll-hitchcock-roll-flattening plugin!")
-
-
 @RollPass.Roll.flattening_ratio
 def flattening_ratio(self: RollPass.Roll):
     """Calculates the ratio between flattened and initial roll radius using Hitchcocks formula."""
