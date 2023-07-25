@@ -1,10 +1,7 @@
 import numpy as np
-import logging
-from pyroll.core import RollPass, Roll, Hook
+from pyroll.core import RollPass, Hook
 
-VERSION = "2.0.0"
-
-log = logging.getLogger(__name__)
+VERSION = "2.0.1"
 
 RollPass.Roll.flattening_ratio = Hook[float]()
 """The ratio between flattened and nominal radius of the roll."""
@@ -32,8 +29,8 @@ def flattening_ratio(self: RollPass.Roll):
 
     elastic_constant = (16 * (1 - self.poissons_ratio ** 2)) / (np.pi * self.elastic_modulus)
     height_change = roll_pass.in_profile.equivalent_rectangle.height - roll_pass.out_profile.equivalent_rectangle.height
-    mean_width = (
-                         roll_pass.in_profile.equivalent_rectangle.width + roll_pass.out_profile.equivalent_rectangle.width) / 2
+    mean_width = (roll_pass.in_profile.equivalent_rectangle.width
+                  + roll_pass.out_profile.equivalent_rectangle.width) / 2
 
     flattening_hitchcock = (elastic_constant * roll_pass.roll_force) / (height_change * mean_width)
 
@@ -43,7 +40,7 @@ def flattening_ratio(self: RollPass.Roll):
     else:
         ratio = 2 * flattening_hitchcock ** (2 / 3)
 
-    log.info(f"Calculated radius ratio of {ratio:.2f}")
+    self.logger.info(f"Calculated radius ratio of {ratio:.2f}")
     return ratio
 
 
@@ -57,7 +54,7 @@ def flattened_radius(self: RollPass.Roll):
     else:
 
         radius = roll_pass.roll.flattening_ratio * roll_pass.roll.nominal_radius
-        log.info(f"Calculated a roll radius of {radius * 1e3:.2f} mm using Hitchcook's model!")
+        self.logger.info(f"Calculated a roll radius of {radius * 1e3:.2f} mm using Hitchcook's model!")
 
     return radius
 
