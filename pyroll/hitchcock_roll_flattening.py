@@ -1,17 +1,17 @@
 import numpy as np
-from pyroll.core import RollPass, Hook
+from pyroll.core import BaseRollPass, Hook
 
-VERSION = "2.0.1"
+VERSION = "2.0.2"
 
-RollPass.Roll.flattening_ratio = Hook[float]()
+BaseRollPass.Roll.flattening_ratio = Hook[float]()
 """The ratio between flattened and nominal radius of the roll."""
 
-RollPass.Roll.flattened_radius = Hook[float]()
+BaseRollPass.Roll.flattened_radius = Hook[float]()
 """Flattened roll radius acc. to Hitchcock."""
 
 
-@RollPass.Roll.flattening_ratio
-def flattening_ratio(self: RollPass.Roll):
+@BaseRollPass.Roll.flattening_ratio
+def flattening_ratio(self: BaseRollPass.Roll):
     """Calculates the ratio between flattened and initial roll radius using Hitchcocks formula."""
     roll_pass = self.roll_pass
 
@@ -32,8 +32,8 @@ def flattening_ratio(self: RollPass.Roll):
     return ratio
 
 
-@RollPass.Roll.flattened_radius
-def flattened_radius(self: RollPass.Roll):
+@BaseRollPass.Roll.flattened_radius
+def flattened_radius(self: BaseRollPass.Roll):
     """Calculates the flattened radius."""
     roll_pass = self.roll_pass
 
@@ -47,22 +47,22 @@ def flattened_radius(self: RollPass.Roll):
     return radius
 
 
-@RollPass.Roll.max_radius
-def max_radius(self: RollPass.Roll):
+@BaseRollPass.Roll.max_radius
+def max_radius(self: BaseRollPass.Roll):
     if self.has_value("flattened_radius"):
         radius = self.flattened_radius
         return radius
 
 
-@RollPass.Roll.min_radius
-def min_radius(self: RollPass.Roll):
+@BaseRollPass.Roll.min_radius
+def min_radius(self: BaseRollPass.Roll):
     if self.has_value("flattened_radius"):
         radius = self.flattened_radius - self.groove.depth
         return radius
 
 
-@RollPass.Roll.working_radius
-def working_radius(self: RollPass.Roll):
+@BaseRollPass.Roll.working_radius
+def working_radius(self: BaseRollPass.Roll):
     if self.has_value("flattened_radius"):
         radius = self.flattened_radius - self.groove.cross_section.centroid.y
         return radius

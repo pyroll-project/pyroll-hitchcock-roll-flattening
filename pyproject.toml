@@ -22,7 +22,7 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "pyroll-core ~= 2.0"
+    "pyroll-core ~= 2.1.9"
 ]
 
 dynamic = ["version"]
