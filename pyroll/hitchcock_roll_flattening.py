@@ -1,7 +1,7 @@
 import numpy as np
 from pyroll.core import BaseRollPass, Hook
 
-VERSION = "2.0.2"
+VERSION = "3.0.0"
 
 BaseRollPass.Roll.flattening_ratio = Hook[float]()
 """The ratio between flattened and nominal radius of the roll."""
